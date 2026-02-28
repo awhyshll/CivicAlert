@@ -1,7 +1,8 @@
 /**
- * CivicAlert — Monochrome Black & White Dashboard
+ * CivicAlert — Industrial White Dashboard
  */
 import { useEffect, useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { checkServerHealth } from "../utils/detectAPI";
 import { initAudio, setMuted } from "../utils/alertSound";
 import useDetectionLogic, { STATUS } from "../hooks/useDetectionLogic";
@@ -100,89 +101,101 @@ function DashboardPage() {
     setIsStreaming(false);
   }, []);
 
-  // ── Status styling (monochrome) ──
-  const statusStyles = {
-    [STATUS.SAFE]: { bg: "bg-white/5", border: "border-white/10", text: "text-neutral-400", dot: "bg-neutral-400", glow: "" },
-    [STATUS.DETECTING]: { bg: "bg-white/8", border: "border-white/15", text: "text-neutral-300", dot: "bg-neutral-300", glow: "" },
-    [STATUS.WARNING]: { bg: "bg-white/10", border: "border-white/20", text: "text-white", dot: "bg-white", glow: "shadow-[0_0_30px_rgba(255,255,255,0.15)]" },
-    [STATUS.ALERT]: { bg: "bg-white/15", border: "border-white/30", text: "text-white", dot: "bg-white", glow: "shadow-[0_0_40px_rgba(255,255,255,0.25)]" },
+  // ── Status config ──
+  const statusConfig = {
+    [STATUS.SAFE]: { label: "SAFE", color: "text-slate-500", dot: "bg-green-500", border: "border-[#dddddd]" },
+    [STATUS.DETECTING]: { label: "DETECTING", color: "text-slate-700", dot: "bg-amber-500 animate-pulse", border: "border-slate-400" },
+    [STATUS.WARNING]: { label: `WARNING — ${secondsLeft}s`, color: "text-slate-900 font-bold", dot: "bg-red-600 animate-pulse", border: "border-red-400" },
+    [STATUS.ALERT]: { label: "ALERT — PICK UP THE TRASH", color: "text-red-700 font-black", dot: "bg-red-600 animate-pulse", border: "border-red-600" },
   };
-  const s = statusStyles[status] || statusStyles[STATUS.SAFE];
+  const st = statusConfig[status] || statusConfig[STATUS.SAFE];
 
-  const apiDot = apiStatus === "calling" ? "bg-white animate-pulse" : apiStatus === "error" ? "bg-neutral-500" : "bg-neutral-700";
-  const apiLabel = apiStatus === "calling" ? "Calling API…" : apiStatus === "error" ? "API Error" : "Idle";
+  const apiDot = apiStatus === "calling" ? "bg-green-500 animate-pulse" : apiStatus === "error" ? "bg-red-500" : "bg-slate-300";
+  const apiLabel = apiStatus === "calling" ? "CALLING API" : apiStatus === "error" ? "API ERROR" : "IDLE";
 
   return (
-    <div className="min-h-screen bg-black text-neutral-100 flex flex-col">
-      {/* ═══ Top bar ═══ */}
-      <header className="border-b border-white/10 bg-neutral-950/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-lg font-bold tracking-tight text-white">CivicAlert</h1>
-              <p className="text-[10px] text-neutral-500 -mt-0.5 tracking-wider uppercase">Smart Civic Monitoring System</p>
-            </div>
+    <div className="min-h-screen bg-white text-slate-900 font-[Space_Grotesk,monospace] flex flex-col overflow-x-hidden">
+      {/* ═══ Header ═══ */}
+      <header className="flex items-center justify-between border-b border-black px-6 py-4 bg-white sticky top-0 z-50">
+        <div className="flex items-center gap-3">
+          <div className="size-6 bg-black flex items-center justify-center text-white">
+            <span className="material-symbols-outlined text-sm">security</span>
           </div>
-
+          <Link to="/">
+            <h1 className="text-xl font-bold tracking-tight uppercase" style={{ letterSpacing: "0.05em" }}>
+              CivicAlert
+            </h1>
+          </Link>
+          <span className="hidden sm:inline text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 border-l border-slate-200 pl-3 ml-1">
+            DASHBOARD
+          </span>
+        </div>
+        <div className="flex items-center gap-4">
           {/* Server status */}
-          <div className="flex items-center gap-4">
-            {serverUp === true && (
-              <span className="flex items-center gap-1.5 text-xs text-white">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                Server Connected
-              </span>
-            )}
-            {serverUp === false && (
-              <span className="flex items-center gap-1.5 text-xs text-neutral-500">
-                <span className="w-2 h-2 rounded-full bg-neutral-500" />
-                Server Offline
-                <button
-                  onClick={() => { setServerUp(null); checkServerHealth().then(setServerUp); }}
-                  className="ml-1 underline hover:text-neutral-300 cursor-pointer"
-                >
-                  retry
-                </button>
-              </span>
-            )}
-            {serverUp === null && (
-              <span className="text-xs text-neutral-600">Checking server…</span>
-            )}
-          </div>
+          {serverUp === true && (
+            <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] text-slate-500">
+              <span className="w-2 h-2 bg-green-500 animate-pulse" />
+              SERVER_ONLINE
+            </span>
+          )}
+          {serverUp === false && (
+            <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] text-red-500">
+              <span className="w-2 h-2 bg-red-500" />
+              SERVER_OFFLINE
+              <button
+                onClick={() => { setServerUp(null); checkServerHealth().then(setServerUp); }}
+                className="ml-1 underline hover:text-slate-900 cursor-pointer"
+              >
+                RETRY
+              </button>
+            </span>
+          )}
+          {serverUp === null && (
+            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-slate-400">CHECKING...</span>
+          )}
+          <Link
+            to="/demo"
+            className="hidden sm:flex uppercase text-[11px] font-bold border border-slate-200 px-4 py-2 hover:bg-slate-50 tracking-[0.05em]"
+          >
+            DEMO
+          </Link>
+          <Link
+            to="/"
+            className="hidden sm:flex uppercase text-[11px] font-bold bg-slate-900 text-white px-4 py-2 hover:bg-slate-800 tracking-[0.05em]"
+          >
+            HOME
+          </Link>
         </div>
       </header>
 
-      {/* ═══ Main content ═══ */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-        {/* ── Left column: video + controls ── */}
-        <div className="flex flex-col gap-4">
-          {/* Status badge bar */}
+      {/* ═══ Main ═══ */}
+      <main className="flex-1 max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_340px] border-x border-[#dddddd]">
+
+        {/* ── Left column: feed + controls ── */}
+        <div className="flex flex-col border-r border-[#dddddd]">
+
+          {/* Status bar */}
           {isStreaming && (
-            <div className={`flex items-center justify-between px-4 py-2.5 rounded-xl border ${s.bg} ${s.border} ${s.glow} transition-all duration-500`}>
-              <div className="flex items-center gap-2">
-                <span className={`w-2.5 h-2.5 rounded-full ${s.dot} ${status === STATUS.WARNING || status === STATUS.ALERT ? "animate-pulse" : ""}`} />
-                <span className={`font-semibold text-sm ${s.text}`}>
-                  {status === STATUS.WARNING ? `WARNING` : status === STATUS.ALERT ? "ALERT — Pick up the trash!" : status}
+            <div className={`flex items-center justify-between px-6 py-3 border-b ${st.border} bg-slate-50 transition-all`}>
+              <div className="flex items-center gap-3">
+                <span className={`w-2 h-2 ${st.dot}`} />
+                <span className={`font-mono text-xs uppercase tracking-[0.15em] ${st.color}`}>
+                  {st.label}
                 </span>
                 {status === STATUS.DETECTING && (
-                  <span className="text-xs text-neutral-500 ml-1">
-                    Detection confidence: {consecutivePosCount}/3
+                  <span className="text-[10px] text-slate-400 font-mono tracking-wider ml-1">
+                    [{consecutivePosCount}/3]
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 {status === STATUS.WARNING && secondsLeft !== null && (
-                  <span className="font-mono text-2xl font-bold text-white tabular-nums">
+                  <span className="font-mono text-2xl font-black text-slate-900 tabular-nums">
                     {secondsLeft}s
                   </span>
                 )}
-                {/* API status indicator */}
-                <span className="flex items-center gap-1.5 text-[10px] text-neutral-600">
-                  <span className={`w-1.5 h-1.5 rounded-full ${apiDot}`} />
+                <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-slate-400">
+                  <span className={`w-1.5 h-1.5 ${apiDot}`} />
                   {apiLabel}
                 </span>
               </div>
@@ -190,67 +203,102 @@ function DashboardPage() {
           )}
 
           {/* Video feed */}
-          <div className={`relative aspect-video bg-neutral-950 rounded-2xl overflow-hidden border ${isStreaming ? s.border : "border-white/5"} ${isStreaming ? s.glow : ""} transition-all duration-500`}>
+          <div className="relative aspect-video bg-slate-100 overflow-hidden border-b border-[#dddddd]">
             {isStreaming ? (
-              <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+              <>
+                <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+                <div className="absolute inset-0 scanlines pointer-events-none" />
+
+                {/* HUD overlays */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/50 px-2 py-1">
+                  <span className="w-2 h-2 bg-red-600 animate-pulse" />
+                  <span className="font-mono text-[10px] text-white uppercase tracking-[0.1em]">REC // LIVE</span>
+                </div>
+                <div className="absolute top-4 right-4 bg-black/50 px-2 py-1 text-right">
+                  <span className="font-mono text-[10px] text-white uppercase tracking-[0.1em]">
+                    MODEL: YOLOv8 CUSTOM
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 bg-black/50 px-2 py-1">
+                  <span className="font-mono text-[10px] text-white uppercase tracking-[0.1em]">
+                    CONF: 0.50 // {demoMode ? "DEMO_5S" : "STANDARD_30S"}
+                  </span>
+                </div>
+
+                {/* Crosshair */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-12 h-12 border border-white/30 relative">
+                    <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white" />
+                    <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-white" />
+                    <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-white" />
+                    <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white" />
+                  </div>
+                </div>
+
+                {/* Countdown overlay */}
+                {status === STATUS.WARNING && secondsLeft !== null && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="text-[120px] font-black text-white/15 tabular-nums select-none font-mono">
+                      {secondsLeft}
+                    </span>
+                  </div>
+                )}
+
+                {/* Alert overlay */}
+                {status === STATUS.ALERT && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-red-600/10 pointer-events-none border-4 border-red-600">
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="material-symbols-outlined text-red-600 text-6xl animate-pulse">warning</span>
+                      <span className="font-mono text-2xl font-black text-red-600 uppercase tracking-[0.2em] animate-pulse">
+                        ALERT TRIGGERED
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full text-neutral-700 gap-3">
-                <svg className="w-16 h-16 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9A2.25 2.25 0 0013.5 5.25h-9A2.25 2.25 0 002.25 7.5v9A2.25 2.25 0 004.5 18.75z" />
-                </svg>
-                <p className="text-sm text-neutral-600">Click Start Monitoring to begin</p>
-              </div>
-            )}
-            {/* LIVE badge */}
-            {isStreaming && (
-              <span className="absolute top-3 left-3 flex items-center gap-1.5 bg-white text-black text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur">
-                <span className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
-                LIVE
-              </span>
-            )}
-            {/* Countdown overlay */}
-            {status === STATUS.WARNING && secondsLeft !== null && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="text-8xl font-black text-white/20 tabular-nums select-none">
-                  {secondsLeft}
-                </span>
-              </div>
-            )}
-            {/* Alert overlay */}
-            {status === STATUS.ALERT && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/10 pointer-events-none">
-                <span className="text-5xl font-black text-white/40 animate-pulse select-none">
-                  ⚠ ALERT
-                </span>
+              <div className="flex flex-col items-center justify-center h-full text-slate-400 gap-4">
+                <span className="material-symbols-outlined text-[64px] text-slate-300">videocam_off</span>
+                <p className="font-mono text-xs uppercase tracking-[0.15em]">Camera offline — click start monitoring</p>
               </div>
             )}
           </div>
 
           {/* Controls bar */}
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-4 px-6 py-4 border-b border-[#dddddd] bg-white flex-wrap">
             {!isStreaming ? (
-              <button onClick={startCamera} className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-black text-sm font-semibold rounded-lg transition-colors cursor-pointer">
-                Start Monitoring
+              <button
+                onClick={startCamera}
+                className="bg-slate-900 text-white px-6 py-3 font-bold text-xs uppercase tracking-[0.15em] hover:bg-slate-800 transition-colors cursor-pointer border border-slate-900"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[16px]">play_arrow</span>
+                  START MONITORING
+                </span>
               </button>
             ) : (
-              <button onClick={stopCamera} className="px-5 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer border border-white/10">
-                Stop Monitoring
+              <button
+                onClick={stopCamera}
+                className="bg-white text-slate-900 px-6 py-3 font-bold text-xs uppercase tracking-[0.15em] hover:bg-slate-50 transition-colors cursor-pointer border border-slate-900"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[16px]">stop</span>
+                  STOP MONITORING
+                </span>
               </button>
             )}
 
             {/* Demo mode toggle */}
-            <label className="flex items-center gap-2 cursor-pointer select-none">
-              <div className="relative">
-                <input
-                  type="checkbox"
-                  checked={demoMode}
-                  onChange={(e) => setDemoMode(e.target.checked)}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-neutral-800 rounded-full peer-checked:bg-white transition-colors" />
-                <div className="absolute left-0.5 top-0.5 w-4 h-4 bg-neutral-400 rounded-full shadow peer-checked:bg-black peer-checked:translate-x-4 transition-all" />
-              </div>
-              <span className="text-xs text-neutral-500">Demo Mode <span className="text-neutral-700">(5s)</span></span>
+            <label className="flex items-center gap-2 cursor-pointer select-none border border-[#dddddd] px-4 py-3">
+              <input
+                type="checkbox"
+                checked={demoMode}
+                onChange={(e) => setDemoMode(e.target.checked)}
+                className="w-3.5 h-3.5 accent-slate-900 cursor-pointer"
+              />
+              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-600">
+                DEMO MODE <span className="text-slate-400">(5s TIMER)</span>
+              </span>
             </label>
 
             {/* Alert-state controls */}
@@ -258,69 +306,92 @@ function DashboardPage() {
               <>
                 <button
                   onClick={() => { const next = !muted; setMutedState(next); setMuted(next); }}
-                  className="px-3 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold rounded-lg transition-colors cursor-pointer border border-white/10"
+                  className="border border-[#dddddd] px-4 py-3 font-bold text-[10px] uppercase tracking-[0.15em] text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer flex items-center gap-2"
                 >
-                  {muted ? "🔇 Unmute" : "🔊 Mute"}
+                  <span className="material-symbols-outlined text-[16px]">{muted ? "volume_off" : "volume_up"}</span>
+                  {muted ? "UNMUTE" : "MUTE"}
                 </button>
                 <button
                   onClick={dismissAlert}
-                  className="px-3 py-2 bg-white hover:bg-neutral-200 text-black text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                  className="bg-red-600 text-white px-6 py-3 font-bold text-[10px] uppercase tracking-[0.15em] hover:bg-red-700 transition-colors cursor-pointer border border-red-600 flex items-center gap-2"
                 >
-                  Dismiss Alert
+                  <span className="material-symbols-outlined text-[16px]">close</span>
+                  DISMISS ALERT
                 </button>
               </>
             )}
           </div>
 
-          {/* Camera error */}
+          {/* Camera errors */}
           {camError === "denied" && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-neutral-300">
-              <p className="font-semibold text-white mb-1">Camera access denied</p>
-              <p>Click the lock icon in Chrome → set Camera to Allow → reload the page.</p>
+            <div className="mx-6 my-4 border border-red-300 bg-red-50 p-4">
+              <p className="font-bold text-xs uppercase tracking-[0.1em] text-red-700 mb-1">
+                <span className="material-symbols-outlined text-[14px] align-middle mr-1">error</span>
+                CAMERA ACCESS DENIED
+              </p>
+              <p className="font-mono text-[10px] text-red-600 uppercase leading-relaxed tracking-wider">
+                Click the lock icon in Chrome → set Camera to Allow → reload the page.
+              </p>
             </div>
           )}
           {camError === "not-found" && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-neutral-400">
-              <p className="font-semibold text-neutral-200 mb-1">No camera found</p>
-              <p>Ensure your webcam is connected and not used by another app.</p>
+            <div className="mx-6 my-4 border border-amber-300 bg-amber-50 p-4">
+              <p className="font-bold text-xs uppercase tracking-[0.1em] text-amber-700 mb-1">
+                <span className="material-symbols-outlined text-[14px] align-middle mr-1">warning</span>
+                NO CAMERA FOUND
+              </p>
+              <p className="font-mono text-[10px] text-amber-600 uppercase leading-relaxed tracking-wider">
+                Ensure your webcam is connected and not used by another app.
+              </p>
             </div>
           )}
         </div>
 
         {/* ── Right column: side panels ── */}
-        <aside className="flex flex-col gap-4">
+        <aside className="flex flex-col">
+
           {/* Session stats */}
-          <div className="bg-neutral-950 rounded-2xl border border-white/10 p-5">
-            <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Session Stats</h2>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="p-6 border-b border-[#dddddd]">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">
+              SESSION_STATS
+            </h2>
+            <div className="grid grid-cols-2 gap-5">
               <div>
-                <p className="text-2xl font-bold text-white tabular-nums">{totalAlerts}</p>
-                <p className="text-[10px] text-neutral-600 uppercase tracking-wider mt-0.5">Total Alerts</p>
+                <p className="text-3xl font-black text-slate-900 tabular-nums">{totalAlerts}</p>
+                <p className="font-mono text-[9px] text-slate-400 uppercase tracking-[0.2em] mt-1">TOTAL ALERTS</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white tabular-nums">{latestDetections.length}</p>
-                <p className="text-[10px] text-neutral-600 uppercase tracking-wider mt-0.5">Objects Now</p>
+                <p className="text-3xl font-black text-slate-900 tabular-nums">{latestDetections.length}</p>
+                <p className="font-mono text-[9px] text-slate-400 uppercase tracking-[0.2em] mt-1">OBJECTS NOW</p>
               </div>
               <div>
-                <p className={`text-2xl font-bold tabular-nums ${s.text}`}>{status}</p>
-                <p className="text-[10px] text-neutral-600 uppercase tracking-wider mt-0.5">Status</p>
+                <p className={`text-xl font-black tabular-nums uppercase ${
+                  status === STATUS.ALERT ? "text-red-600" :
+                  status === STATUS.WARNING ? "text-amber-600" :
+                  status === STATUS.DETECTING ? "text-slate-700" : "text-green-600"
+                }`}>
+                  {status}
+                </p>
+                <p className="font-mono text-[9px] text-slate-400 uppercase tracking-[0.2em] mt-1">STATUS</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white tabular-nums">{demoMode ? "5s" : "30s"}</p>
-                <p className="text-[10px] text-neutral-600 uppercase tracking-wider mt-0.5">Timer Mode</p>
+                <p className="text-3xl font-black text-slate-900 tabular-nums">{demoMode ? "5s" : "30s"}</p>
+                <p className="font-mono text-[9px] text-slate-400 uppercase tracking-[0.2em] mt-1">TIMER MODE</p>
               </div>
             </div>
           </div>
 
           {/* Detection details */}
           {isStreaming && latestDetections.length > 0 && (
-            <div className="bg-neutral-950 rounded-2xl border border-white/10 p-5">
-              <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">Latest Detections</h2>
-              <div className="space-y-2">
+            <div className="p-6 border-b border-[#dddddd]">
+              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
+                LATEST_DETECTIONS
+              </h2>
+              <div className="space-y-3">
                 {latestDetections.map((d, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs">
-                    <span className="text-neutral-400">{d.class_name}</span>
-                    <span className={`font-mono font-semibold ${d.confidence >= 0.5 ? "text-white" : "text-neutral-600"}`}>
+                  <div key={i} className="flex items-center justify-between border-b border-[#dddddd] pb-2">
+                    <span className="font-mono text-xs text-slate-700 uppercase tracking-wider">{d.class_name}</span>
+                    <span className={`font-mono text-xs font-bold tabular-nums ${d.confidence >= 0.5 ? "text-slate-900" : "text-slate-400"}`}>
                       {(d.confidence * 100).toFixed(1)}%
                     </span>
                   </div>
@@ -330,20 +401,20 @@ function DashboardPage() {
           )}
 
           {/* Incident log */}
-          <div className="bg-neutral-950 rounded-2xl border border-white/10 p-5 flex-1">
-            <h2 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">
-              Incident Log <span className="text-neutral-700">(last 5)</span>
+          <div className="p-6 flex-1">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
+              INCIDENT_LOG <span className="text-slate-300">(LAST 5)</span>
             </h2>
             {incidents.length === 0 ? (
-              <p className="text-xs text-neutral-700 italic">No incidents yet.</p>
+              <p className="font-mono text-[10px] text-slate-300 uppercase tracking-wider">No incidents recorded.</p>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {incidents.map((inc) => (
-                  <div key={inc.id} className="flex items-center gap-3 text-xs border-l-2 border-white/20 pl-3 py-1">
-                    <span className="w-2 h-2 rounded-full bg-white/50 shrink-0" />
+                  <div key={inc.id} className="flex items-start gap-3 border-l-2 border-red-400 pl-3 py-1">
+                    <span className="material-symbols-outlined text-red-500 text-[14px] mt-0.5">error</span>
                     <div>
-                      <p className="text-neutral-300 font-medium">Litter Alert Triggered</p>
-                      <p className="text-neutral-600">{inc.time} · {inc.date}</p>
+                      <p className="font-mono text-xs text-slate-700 font-bold uppercase tracking-wider">Litter Alert</p>
+                      <p className="font-mono text-[10px] text-slate-400 tracking-wider">{inc.time} · {inc.date}</p>
                     </div>
                   </div>
                 ))}
@@ -354,10 +425,13 @@ function DashboardPage() {
       </main>
 
       {/* ═══ Footer ═══ */}
-      <footer className="border-t border-white/10 py-3 text-center">
-        <p className="text-[10px] text-neutral-700">
-          CivicAlert v1.0 — Built for cleaner public spaces
-        </p>
+      <footer className="border-t border-black px-6 py-4 flex justify-between items-center bg-white">
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-400">
+          CivicAlert v1.0.0
+        </span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-400">
+          ML-BASED LITTER DETECTION // YOLOv8 + FASTAPI
+        </span>
       </footer>
     </div>
   );

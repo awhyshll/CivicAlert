@@ -31,11 +31,11 @@ export default function AccessRequestPage() {
           </Link>
         </div>
         <div className="flex items-center gap-8">
-          <nav className="hidden md:flex items-center gap-6">
+          {/* <nav className="hidden md:flex items-center gap-6">
             <Link to="/dashboard" className="text-xs font-bold uppercase tracking-widest hover:underline">Dashboard</Link>
             <Link to="/demo" className="text-xs font-bold uppercase tracking-widest hover:underline">Demo</Link>
             <a className="text-xs font-bold uppercase tracking-widest hover:underline" href="#">Support</a>
-          </nav>
+          </nav> */}
           <Link to="/login" className="bg-black text-white px-6 py-2 text-xs font-bold uppercase tracking-widest">
             Login
           </Link>
@@ -105,7 +105,7 @@ export default function AccessRequestPage() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="group">
+              {/* <div className="group">
                 <label className="font-mono text-[10px] font-bold uppercase tracking-widest mb-2 block">
                   Access Tier
                 </label>
@@ -126,7 +126,7 @@ export default function AccessRequestPage() {
                     <span className="material-symbols-outlined">expand_more</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="group">
                 <label className="font-mono text-[10px] font-bold uppercase tracking-widest mb-2 block">
                   Use Case / Reason
@@ -164,10 +164,10 @@ export default function AccessRequestPage() {
       {/* Footer */}
       <footer className="border-t border-black p-4 flex justify-between items-center bg-white px-8">
         <span className="font-mono text-[9px] uppercase text-slate-500">CivicAlert v1.0.0</span>
-        <div className="flex gap-4">
+        {/* <div className="flex gap-4">
           <span className="font-mono text-[9px] uppercase text-slate-500 underline cursor-pointer">Privacy Policy</span>
           <span className="font-mono text-[9px] uppercase text-slate-500 underline cursor-pointer">Technical Terms</span>
-        </div>
+        </div> */}
       </footer>
     </div>
   );
