@@ -1,0 +1,66 @@
+# ========================  CivicAlert .gitignore  ========================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# ----- Node / Frontend (covered by frontend/.gitignore too) -----
+node_modules/
+frontend/dist/
+
+# ----- IDE / Editor -----
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# ----- ML Model — large / binary files -----
+# Weights
+mall-ai-system/models/*.pt
+mall-ai-system/models/*.onnx
+mall-ai-system/models/*.engine
+
+# Dataset images & labels (too large for Git — use Git LFS or cloud storage)
+mall-ai-system/dataset/images/train/*
+mall-ai-system/dataset/images/val/*
+mall-ai-system/dataset/labels/train/*
+mall-ai-system/dataset/labels/val/*
+!mall-ai-system/dataset/images/train/.gitkeep
+!mall-ai-system/dataset/images/val/.gitkeep
+!mall-ai-system/dataset/labels/train/.gitkeep
+!mall-ai-system/dataset/labels/val/.gitkeep
+
+# Videos
+mall-ai-system/videos/input/*
+mall-ai-system/videos/output/*
+!mall-ai-system/videos/input/.gitkeep
+!mall-ai-system/videos/output/.gitkeep
+
+# Training logs / wandb / mlflow
+mall-ai-system/logs/*
+!mall-ai-system/logs/.gitkeep
+wandb/
+mlruns/
+runs/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# ----- Misc -----
+*.log
+*.env
+.env
