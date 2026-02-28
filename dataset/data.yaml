@@ -1,0 +1,6 @@
+path: C:/Users/PRITAM/OneDrive/Desktop/mall-ai-system/dataset
+train: images/train
+val: images/val
+
+names:
+  0: litter
