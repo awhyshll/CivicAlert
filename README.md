@@ -49,15 +49,21 @@ ML-powered litter detection for shopping malls and public spaces. Uses a laptop 
 CivicAlert/
 ├── server.py                       # FastAPI server — loads YOLOv8, exposes /detect
 ├── requirements.txt                # Python dependencies
-├── mall-ai-system/
-│   └── models/
-│       └── best.pt                 # YOLOv8 trained weights (you provide this)
+├── .gitignore
+├── mall-ai-system/                 # ML model directory (teammate adds files here)
+│   ├── models/
+│   │   └── best.pt                 # YOLOv8 trained weights (you provide this)
+│   ├── dataset/                    # Training data (images + labels)
+│   ├── notebooks/                  # Training notebooks
+│   ├── scripts/                    # Inference / utility scripts
+│   ├── videos/                     # Test videos (input/output)
+│   ├── logs/                       # Training logs
+│   └── README.md                   # Instructions for ML teammate
 └── frontend/
     ├── src/
     │   ├── App.jsx                 # React Router setup (BrowserRouter + Routes)
     │   ├── main.jsx                # Entry point
-    │   ├── components/
-    │   │   └── WebcamFeed.jsx      # Standalone webcam component with controls
+    │   ├── index.css               # Tailwind CSS + custom utilities
     │   ├── hooks/
     │   │   ├── useDetectionLogic.js # State machine: SAFE → DETECTING → WARNING → ALERT
     │   │   └── useFrameCapture.js   # Captures 416×416 frames every 5 s
@@ -72,6 +78,7 @@ CivicAlert/
     │       └── detectAPI.js        # API client for /detect + health check
     ├── index.html
     ├── vite.config.js
+    ├── eslint.config.js
     └── package.json
 ```
 
@@ -151,4 +158,8 @@ The frontend implements a state machine with four stages:
 3. **WARNING** — Countdown timer starts (30 s normal / 5 s demo). Litter must be picked up before it expires.
 4. **ALERT** — Timer expired. Audible alarm plays until manually dismissed.
 
+Confidence threshold: **0.50** (detections below this are ignored).
 
+## License
+
+MIT

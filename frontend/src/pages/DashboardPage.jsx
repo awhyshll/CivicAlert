@@ -1,5 +1,5 @@
 /**
- * CivicGuard — Monochrome Black & White Dashboard
+ * CivicAlert — Monochrome Black & White Dashboard
  */
 import { useEffect, useState, useRef, useCallback } from "react";
 import { checkServerHealth } from "../utils/detectAPI";
@@ -124,7 +124,7 @@ function DashboardPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight text-white">CivicGuard</h1>
+              <h1 className="text-lg font-bold tracking-tight text-white">CivicAlert</h1>
               <p className="text-[10px] text-neutral-500 -mt-0.5 tracking-wider uppercase">Smart Civic Monitoring System</p>
             </div>
           </div>
@@ -356,7 +356,7 @@ function DashboardPage() {
       {/* ═══ Footer ═══ */}
       <footer className="border-t border-white/10 py-3 text-center">
         <p className="text-[10px] text-neutral-700">
-          CivicGuard v1.0 — Built for cleaner public spaces
+          CivicAlert v1.0 — Built for cleaner public spaces
         </p>
       </footer>
     </div>

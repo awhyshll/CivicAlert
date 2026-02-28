@@ -1,5 +1,5 @@
 """
-CivicGuard — Local FastAPI Server
+CivicAlert — Local FastAPI Server
 Loads a YOLOv8 model and exposes a /detect endpoint that accepts
 base64-encoded JPEG frames from the React frontend, runs inference,
 and returns detected litter/trash objects.
@@ -20,13 +20,13 @@ from ultralytics import YOLO
 # Logging setup
 # ---------------------------------------------------------------------------
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("civicguard")
+logger = logging.getLogger("civicalert")
 
 # ---------------------------------------------------------------------------
 # FastAPI app
 # ---------------------------------------------------------------------------
 app = FastAPI(
-    title="CivicGuard Detection Server",
+    title="CivicAlert Detection Server",
     description="YOLOv8-powered litter detection API",
     version="1.0.0",
 )

@@ -3,7 +3,7 @@
  *
  * IMPORTANT: The FastAPI server must be running BEFORE using these functions.
  * Start it with:
- *   cd d:\CivicGuard
+ *   cd d:\CivicAlert
  *   uvicorn server:app --reload --port 8000
  */
 
