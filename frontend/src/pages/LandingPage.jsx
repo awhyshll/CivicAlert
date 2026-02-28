@@ -18,11 +18,11 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="hidden md:flex flex-1 justify-end gap-8 items-center">
-            <div className="flex items-center gap-8 font-mono text-[11px] tracking-[0.2em] text-[#777777] uppercase">
+            {/* <div className="flex items-center gap-8 font-mono text-[11px] tracking-[0.2em] text-[#777777] uppercase">
               <a className="hover:text-[#0a0a0a] transition-colors" href="#system">System</a>
               <a className="hover:text-[#0a0a0a] transition-colors" href="#deploy">Features</a>
               <a className="hover:text-[#0a0a0a] transition-colors" href="#specs">Specs</a>
-            </div>
+            </div> */}
             <div className="h-4 w-px bg-[#dddddd]" />
             <div className="flex items-center gap-4">
               <Link
@@ -206,17 +206,17 @@ export default function LandingPage() {
                     <span className="text-[#0a0a0a] font-mono text-[11px] font-bold">30S / 5S DEMO</span>
                   </div>
                 </div>
-                <button className="w-fit mt-4 flex items-center justify-center h-10 px-8 bg-[#f5f5f5] hover:bg-[#dddddd] text-[#0a0a0a] text-[11px] font-mono font-bold uppercase tracking-widest border border-[#dddddd] transition-colors">
+                {/* <button className="w-fit mt-4 flex items-center justify-center h-10 px-8 bg-[#f5f5f5] hover:bg-[#dddddd] text-[#0a0a0a] text-[11px] font-mono font-bold uppercase tracking-widest border border-[#dddddd] transition-colors">
                   VIEW DOCUMENTATION
-                </button>
+                </button> */}
               </div>
             </div>
             <div className="relative bg-[#f5f5f5] min-h-[500px] overflow-hidden">
               <div
-                className="absolute inset-0 bg-cover bg-center grayscale opacity-60"
+                className="absolute inset-0 bg-cover bg-center grayscale opacity-70"
                 style={{
                   backgroundImage:
-                    "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPf1Ile5-Mm1JZ-KlFUANoT6185v2ccXUvIo3_hKqGVuI5k-Z6D3W3hRVnJDGCRW0dlN1vE3CDrSk2lDmpk5zgdpZnkzVKhyC3ccGrW7UWwXM_5MPQae8zdsAJSnZ683D0kU2fZJAr1iCUhJQ0aO8hwXOXEOjZtC3ovIECYMA4iU2pfKT1fYem363FnltF0jVzp2flw_iDpxmdTzxl48usEJYOeXpc8BDkxNyU-QLufJCX_sTZWj22n_AC2xYVzzjqoaOk4vs_hqA')",
+                    "url('https://imgs.search.brave.com/1vtxIinEjhVA_TgFjGXmWE8g7M13o6qdX5vErNngtSA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/a29sa2F0YW1ldHJv/cmFpbC5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMjMvMDUv/R2l0YW5qYWxpLU1l/dHJvLVN0YXRpb24t/S29sa2F0YS5qcGc')",
                 }}
               />
               <div className="absolute inset-0 scanlines opacity-10" />
@@ -262,21 +262,21 @@ export default function LandingPage() {
                 </p>
               </div>
               <form
-                className="flex flex-col md:flex-row gap-0 w-full max-w-md mx-auto"
+                className="flex flex-col items-center gap-0 w-full max-w-md mx-auto"
                 onSubmit={(e) => e.preventDefault()}
               >
-                <input
+                {/* <input
                   className="flex-1 bg-[#f5f5f5] text-[#0a0a0a] border border-[#dddddd] md:border-r-0 focus:ring-1 focus:ring-[#0a0a0a] focus:border-[#0a0a0a] h-12 px-5 placeholder:text-gray-400 font-mono text-xs outline-none uppercase tracking-widest"
                   placeholder="EMAIL@AGENCY.GOV"
                   required
                   type="email"
-                />
-                <button
-                  className="bg-[#0a0a0a] text-white h-12 px-8 font-mono font-bold text-xs uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors border border-[#0a0a0a] whitespace-nowrap"
-                  type="submit"
-                >
-                  REQUEST
-                </button>
+                /> */}
+                <Link
+                      to="/access"
+                      className="flex items-center justify-center h-12 px-10 bg-[#0a0a0a] text-white hover:bg-gray-800 transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.2em] border border-[#0a0a0a] w-full sm:w-auto"
+                    >
+                      REQUEST ACCESS
+                    </Link>
               </form>
               <div className="text-[9px] text-[#777777] font-mono uppercase tracking-[0.3em] mt-2">
                 PROCESSING REQUEST • VERIFICATION PENDING
@@ -297,11 +297,11 @@ export default function LandingPage() {
                 ML-Based Litter Detection v1.0.0
               </div>
             </div>
-            <div className="flex flex-wrap gap-10 text-[10px] font-mono text-[#777777] uppercase tracking-widest">
+            {/* <div className="flex flex-wrap gap-10 text-[10px] font-mono text-[#777777] uppercase tracking-widest">
               <a className="hover:text-[#0a0a0a] transition-colors" href="#">Privacy Policy</a>
               <a className="hover:text-[#0a0a0a] transition-colors" href="#">Terms of Use</a>
               <a className="hover:text-[#0a0a0a] transition-colors" href="#">Documentation</a>
-            </div>
+            </div> */}
             <div className="text-[10px] font-mono text-gray-400">
               © 2026 CIVIC ALERT INC. ALL RIGHTS RESERVED.
             </div>
