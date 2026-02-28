@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual Environment
+yolo_gpu_env/
+
+# YOLO Runs
+runs/
+
+# Logs
+logs/
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Large model weights (optional if needed)
+*.pt
