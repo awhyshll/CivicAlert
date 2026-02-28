@@ -1,0 +1,56 @@
+/* Tailwind CSS v4 — single import pulls in all utilities */
+@import "tailwindcss";
+
+/* ── Google Fonts (loaded in index.html) ── */
+
+/* ── Custom utility classes shared across pages ── */
+
+/* Landing page grid background */
+.grid-bg {
+  background-image: linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scanline overlay (camera feeds) */
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Vignette overlay */
+.vignette {
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  display: flex;
+  width: fit-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa;
+}

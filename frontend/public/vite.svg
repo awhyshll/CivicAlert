@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <text x="50%" y="50%"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-family="cursive"
+        font-size="140"
+        font-weight="400"
+        fill="white">
+    CA
+  </text>
+</svg>
