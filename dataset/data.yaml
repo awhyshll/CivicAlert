@@ -1,6 +1,7 @@
-path: C:/Users/PRITAM/OneDrive/Desktop/mall-ai-system/dataset
+path: D:/CivicAlert/dataset
 train: images/train
 val: images/val
+test: images/test
 
 names:
   0: litter

@@ -221,7 +221,7 @@ function DashboardPage() {
                 </div>
                 <div className="absolute bottom-4 left-4 bg-black/50 px-2 py-1">
                   <span className="font-mono text-[10px] text-white uppercase tracking-[0.1em]">
-                    CONF: 0.50 // {demoMode ? "DEMO_5S" : "STANDARD_30S"}
+                    CONF: 0.25 // {demoMode ? "DEMO_5S" : "STANDARD_30S"}
                   </span>
                 </div>
 
@@ -391,12 +391,20 @@ function DashboardPage() {
                 {latestDetections.map((d, i) => (
                   <div key={i} className="flex items-center justify-between border-b border-[#dddddd] pb-2">
                     <span className="font-mono text-xs text-slate-700 uppercase tracking-wider">{d.class_name}</span>
-                    <span className={`font-mono text-xs font-bold tabular-nums ${d.confidence >= 0.5 ? "text-slate-900" : "text-slate-400"}`}>
+                    <span className={`font-mono text-xs font-bold tabular-nums ${d.confidence >= 0.15 ? "text-slate-900" : "text-slate-400"}`}>
                       {(d.confidence * 100).toFixed(1)}%
                     </span>
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+          {isStreaming && latestDetections.length === 0 && (
+            <div className="p-6 border-b border-[#dddddd]">
+              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">
+                LATEST_DETECTIONS
+              </h2>
+              <p className="font-mono text-[10px] text-slate-300 uppercase tracking-wider">No litter detected in current frame.</p>
             </div>
           )}
 

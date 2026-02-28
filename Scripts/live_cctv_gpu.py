@@ -1,9 +1,9 @@
 import cv2
 from ultralytics import YOLO
 
-model = YOLO(r"C:\Users\PRITAM\runs\detect\train11\weights\best.pt")
+model = YOLO(r"D:\CivicAlert\mall-ai-system\models\best.pt")
 
-cap = cv2.VideoCapture("cctv_video2.mp4")
+cap = cv2.VideoCapture(r"D:\CivicAlert\videos\input\cctv_video.mp4")
 
 width = int(cap.get(3))
 height = int(cap.get(4))
