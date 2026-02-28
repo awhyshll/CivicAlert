@@ -12,8 +12,8 @@ import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from PIL import Image
 import numpy as np
+import cv2
 from ultralytics import YOLO
 
 # ---------------------------------------------------------------------------
@@ -36,8 +36,8 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite dev server
-    allow_credentials=True,
+    allow_origins=["*"],  # Allow all origins during development
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -108,19 +108,21 @@ def detect(req: DetectRequest):
             image_data = image_data.split(",", 1)[1]
 
         image_bytes = base64.b64decode(image_data)
-        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+        # Use OpenCV to decode — this produces a BGR numpy array,
+        # which is exactly what YOLO expects internally.
+        np_arr = np.frombuffer(image_bytes, np.uint8)
+        frame = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        if frame is None:
+            raise ValueError("cv2.imdecode returned None")
     except Exception as e:
         raise HTTPException(
             status_code=400,
             detail=f"Invalid base64 image: {e}",
         )
 
-    # 3. Convert PIL image to numpy array for YOLOv8
-    frame = np.array(image)
-
-    # 4. Run inference (confidence threshold 0.25)
+    # 3. Run inference (confidence threshold 0.15)
     try:
-        results = model.predict(source=frame, conf=0.25, verbose=False)
+        results = model.predict(source=frame, conf=0.15, verbose=False)
     except Exception as e:
         raise HTTPException(
             status_code=500,
@@ -140,5 +142,8 @@ def detect(req: DetectRequest):
                 Detection(class_name=class_name, confidence=round(confidence, 4))
             )
 
+    if detections:
+        for d in detections:
+            logger.info(f"  → {d.class_name}: {d.confidence*100:.1f}%")
     logger.info(f"Detected {len(detections)} object(s)")
     return DetectResponse(detections=detections)
