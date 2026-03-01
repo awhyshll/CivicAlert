@@ -158,8 +158,3 @@ The frontend implements a state machine with four stages:
 3. **WARNING** — Countdown timer starts (30 s normal / 5 s demo). Litter must be picked up before it expires.
 4. **ALERT** — Timer expired. Audible alarm plays until manually dismissed.
 
-Confidence threshold: **0.50** (detections below this are ignored).
-
-## License
-
-MIT
