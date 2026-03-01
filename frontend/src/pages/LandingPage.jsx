@@ -69,6 +69,15 @@ export default function LandingPage() {
                         arrow_forward
                       </span>
                     </Link>
+                    <Link
+                      to="/output"
+                      className="flex items-center justify-center h-12 px-10 bg-transparent text-[#0a0a0a] hover:bg-gray-100 transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.2em] border border-[#0a0a0a] w-full sm:w-auto group"
+                    >
+                      WATCH OUTPUT
+                      <span className="material-symbols-outlined text-[16px] ml-2 group-hover:translate-x-1 transition-transform">
+                        play_arrow
+                      </span>
+                    </Link>
                   </div>
                 </div>
 

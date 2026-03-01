@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import AccessRequestPage from "./pages/AccessRequestPage";
 import DemoPage from "./pages/DemoPage";
 import DashboardPage from "./pages/DashboardPage";
+import OutputVideoPage from "./pages/OutputVideoPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/access" element={<AccessRequestPage />} />
           <Route path="/demo" element={<DemoPage />} />
+          <Route path="/output" element={<OutputVideoPage />} />
           <Route
             path="/dashboard"
             element={

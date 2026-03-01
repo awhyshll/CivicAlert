@@ -41,12 +41,12 @@ export default function LoginPage() {
     <div className="bg-white font-[Space_Grotesk,monospace] min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-[420px] bg-white border border-[#dddddd] flex flex-col relative">
         {/* Top accent bar */}
-        <div className="h-1 w-full bg-[#137fec]" />
+        <div className="h-1 w-full bg-[#01050a]" />
 
         {/* Status bar */}
         <div className="flex items-center justify-between px-6 py-2 border-b border-[#dddddd] bg-slate-50">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-gray-500 animate-pulse" />
             <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
               Detection Engine Online
             </span>
@@ -58,7 +58,7 @@ export default function LoginPage() {
         <div className="p-8 pb-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <h1 className="text-slate-900 text-2xl font-bold tracking-tighter leading-tight uppercase">
-              CivicAlert <span className="text-[#137fec]">Login</span>
+              CivicAlert <span className="text-[#000000]">Login</span>
             </h1>
             <p className="text-slate-500 text-xs font-medium uppercase tracking-wider">
               Litter Detection Dashboard
@@ -92,7 +92,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <div className="absolute right-0 top-0 h-full w-1 bg-transparent group-focus-within:bg-[#137fec] transition-colors" />
+              <div className="absolute right-0 top-0 h-full w-1 bg-transparent group-focus-within:bg-[#030507] transition-colors" />
             </div>
           </div>
 
@@ -115,7 +115,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="absolute right-0 top-0 h-full w-1 bg-transparent group-focus-within:bg-[#137fec] transition-colors" />
+              <div className="absolute right-0 top-0 h-full w-1 bg-transparent group-focus-within:bg-[#020203] transition-colors" />
             </div>
           </div>
 
@@ -129,7 +129,7 @@ export default function LoginPage() {
 
           <div className="pt-2 flex flex-col gap-4">
             <button
-              className="relative w-full h-12 bg-slate-900 text-white hover:bg-[#137fec] transition-all duration-200 flex items-center justify-center gap-2 group/btn disabled:opacity-60 disabled:cursor-not-allowed"
+              className="relative w-full h-12 bg-slate-900 text-white hover:bg-[#0a0f13] transition-all duration-200 flex items-center justify-center gap-2 group/btn disabled:opacity-60 disabled:cursor-not-allowed"
               type="submit"
               disabled={isLoading}
             >
@@ -155,13 +155,13 @@ export default function LoginPage() {
             <div className="flex items-center justify-between border-t border-dashed border-slate-300 pt-4 mt-2">
               <Link
                 to="/access"
-                className="text-xs text-slate-500 hover:text-[#137fec] transition-colors uppercase tracking-wide"
+                className="text-xs text-slate-500 hover:text-[#101215] transition-colors uppercase tracking-wide"
               >
                 Request Access
               </Link>
               <a
                 href="#"
-                className="text-xs text-slate-500 hover:text-[#137fec] transition-colors uppercase tracking-wide"
+                className="text-xs text-slate-500 hover:text-[#08090a] transition-colors uppercase tracking-wide"
               >
                 Need Help?
               </a>

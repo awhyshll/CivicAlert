@@ -8,9 +8,11 @@ and returns detected litter/trash objects.
 import base64
 import io
 import logging
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import numpy as np
 import cv2
@@ -82,6 +84,22 @@ def health_check():
         "status": "ok",
         "model_loaded": model is not None,
     }
+
+# ---------------------------------------------------------------------------
+# Video output endpoint
+# ---------------------------------------------------------------------------
+VIDEO_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "videos", "output")
+
+@app.get("/video")
+def serve_output_video():
+    """Serve the first .mp4 file from videos/output/."""
+    if not os.path.isdir(VIDEO_OUTPUT_DIR):
+        raise HTTPException(status_code=404, detail="Output directory not found.")
+    videos = [f for f in os.listdir(VIDEO_OUTPUT_DIR) if f.lower().endswith(".mp4")]
+    if not videos:
+        raise HTTPException(status_code=404, detail="No output video found.")
+    video_path = os.path.join(VIDEO_OUTPUT_DIR, videos[0])
+    return FileResponse(video_path, media_type="video/mp4", filename=videos[0])
 
 # ---------------------------------------------------------------------------
 # Detection endpoint
