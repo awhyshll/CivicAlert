@@ -1,4 +1,4 @@
-path: D:/CivicAlert/dataset
+path: .
 train: images/train
 val: images/val
 test: images/test

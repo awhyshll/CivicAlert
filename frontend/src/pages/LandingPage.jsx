@@ -18,11 +18,6 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="hidden md:flex flex-1 justify-end gap-8 items-center">
-            {/* <div className="flex items-center gap-8 font-mono text-[11px] tracking-[0.2em] text-[#777777] uppercase">
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#system">System</a>
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#deploy">Features</a>
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#specs">Specs</a>
-            </div> */}
             <div className="h-4 w-px bg-[#dddddd]" />
             <div className="flex items-center gap-4">
               <Link
@@ -33,9 +28,7 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
-          <div className="md:hidden text-[#0a0a0a] cursor-pointer">
-            <span className="material-symbols-outlined">menu</span>
-          </div>
+
         </header>
 
         {/* Main */}
@@ -206,9 +199,6 @@ export default function LandingPage() {
                     <span className="text-[#0a0a0a] font-mono text-[11px] font-bold">30S / 5S DEMO</span>
                   </div>
                 </div>
-                {/* <button className="w-fit mt-4 flex items-center justify-center h-10 px-8 bg-[#f5f5f5] hover:bg-[#dddddd] text-[#0a0a0a] text-[11px] font-mono font-bold uppercase tracking-widest border border-[#dddddd] transition-colors">
-                  VIEW DOCUMENTATION
-                </button> */}
               </div>
             </div>
             <div className="relative bg-[#f5f5f5] min-h-[500px] overflow-hidden">
@@ -261,23 +251,12 @@ export default function LandingPage() {
                   Deploy CivicAlert in your municipality. Request access to the litter detection dashboard and start keeping your public spaces clean.
                 </p>
               </div>
-              <form
-                className="flex flex-col items-center gap-0 w-full max-w-md mx-auto"
-                onSubmit={(e) => e.preventDefault()}
+              <Link
+                to="/access"
+                className="flex items-center justify-center h-12 px-10 bg-[#0a0a0a] text-white hover:bg-gray-800 transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.2em] border border-[#0a0a0a] w-full sm:w-auto"
               >
-                {/* <input
-                  className="flex-1 bg-[#f5f5f5] text-[#0a0a0a] border border-[#dddddd] md:border-r-0 focus:ring-1 focus:ring-[#0a0a0a] focus:border-[#0a0a0a] h-12 px-5 placeholder:text-gray-400 font-mono text-xs outline-none uppercase tracking-widest"
-                  placeholder="EMAIL@AGENCY.GOV"
-                  required
-                  type="email"
-                /> */}
-                <Link
-                      to="/access"
-                      className="flex items-center justify-center h-12 px-10 bg-[#0a0a0a] text-white hover:bg-gray-800 transition-colors text-[11px] font-mono font-bold uppercase tracking-[0.2em] border border-[#0a0a0a] w-full sm:w-auto"
-                    >
-                      REQUEST ACCESS
-                    </Link>
-              </form>
+                REQUEST ACCESS
+              </Link>
               <div className="text-[9px] text-[#777777] font-mono uppercase tracking-[0.3em] mt-2">
                 PROCESSING REQUEST • VERIFICATION PENDING
               </div>
@@ -297,11 +276,6 @@ export default function LandingPage() {
                 ML-Based Litter Detection v1.0.0
               </div>
             </div>
-            {/* <div className="flex flex-wrap gap-10 text-[10px] font-mono text-[#777777] uppercase tracking-widest">
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#">Privacy Policy</a>
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#">Terms of Use</a>
-              <a className="hover:text-[#0a0a0a] transition-colors" href="#">Documentation</a>
-            </div> */}
             <div className="text-[10px] font-mono text-gray-400">
               © 2026 CIVIC ALERT INC. ALL RIGHTS RESERVED.
             </div>

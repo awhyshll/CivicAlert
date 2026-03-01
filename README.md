@@ -17,7 +17,7 @@ ML-powered litter detection for shopping malls and public spaces. Uses a laptop 
    React Router                                    Ultralytics YOLO
 ```
 
-- **Frontend** captures webcam frames every 5 seconds, resizes to 416×416, sends as base64 JPEG to the backend
+- **Frontend** captures webcam frames every 5 seconds, resizes to 640×640, sends as base64 JPEG to the backend
 - **Backend** runs YOLOv8 inference locally and returns detected objects with confidence scores
 - **Alert** fires via Web Audio API if litter persists for 30+ seconds (5 s in demo mode)
 - **Detection state machine**: SAFE → DETECTING → WARNING → ALERT — requires 3 consecutive positive frames before starting the countdown

@@ -18,9 +18,9 @@ export const STATUS = {
 };
 
 // How many consecutive frames of the same result before we act
-const CONSECUTIVE_THRESHOLD = 2;
+const CONSECUTIVE_THRESHOLD = 3;
 // Minimum confidence to count a detection as "positive"
-const CONFIDENCE_THRESHOLD = 0.15;
+const CONFIDENCE_THRESHOLD = 0.25;
 
 /**
  * useDetectionLogic — State-machine hook for the litter detection flow.

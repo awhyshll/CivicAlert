@@ -31,11 +31,6 @@ export default function AccessRequestPage() {
           </Link>
         </div>
         <div className="flex items-center gap-8">
-          {/* <nav className="hidden md:flex items-center gap-6">
-            <Link to="/dashboard" className="text-xs font-bold uppercase tracking-widest hover:underline">Dashboard</Link>
-            <Link to="/demo" className="text-xs font-bold uppercase tracking-widest hover:underline">Demo</Link>
-            <a className="text-xs font-bold uppercase tracking-widest hover:underline" href="#">Support</a>
-          </nav> */}
           <Link to="/login" className="bg-black text-white px-6 py-2 text-xs font-bold uppercase tracking-widest">
             Login
           </Link>
@@ -88,6 +83,7 @@ export default function AccessRequestPage() {
                   className="w-full border border-black bg-white p-4 font-mono text-sm focus:ring-0 focus:border-black placeholder:text-slate-300"
                   placeholder="YOUR ORGANIZATION NAME"
                   type="text"
+                  required
                   value={form.organization}
                   onChange={handleChange}
                 />
@@ -101,32 +97,11 @@ export default function AccessRequestPage() {
                   className="w-full border border-black bg-white p-4 font-mono text-sm focus:ring-0 focus:border-black placeholder:text-slate-300"
                   placeholder="YOU@ORGANIZATION.COM"
                   type="email"
+                  required
                   value={form.email}
                   onChange={handleChange}
                 />
               </div>
-              {/* <div className="group">
-                <label className="font-mono text-[10px] font-bold uppercase tracking-widest mb-2 block">
-                  Access Tier
-                </label>
-                <div className="relative">
-                  <select
-                    name="clearance"
-                    className="w-full border border-black bg-white p-4 font-mono text-sm focus:ring-0 focus:border-black appearance-none"
-                    value={form.clearance}
-                    onChange={handleChange}
-                  >
-                    <option value="">SELECT TIER</option>
-                    <option value="1">TIER 1 — VIEWER (READ-ONLY)</option>
-                    <option value="2">TIER 2 — OPERATOR (ALERTS + LOGS)</option>
-                    <option value="3">TIER 3 — ADMIN (CONFIGURATION)</option>
-                    <option value="4">TIER 4 — FULL CONTROL</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <span className="material-symbols-outlined">expand_more</span>
-                  </div>
-                </div>
-              </div> */}
               <div className="group">
                 <label className="font-mono text-[10px] font-bold uppercase tracking-widest mb-2 block">
                   Use Case / Reason
@@ -136,6 +111,7 @@ export default function AccessRequestPage() {
                   className="w-full border border-black bg-white p-4 font-mono text-sm focus:ring-0 focus:border-black placeholder:text-slate-300"
                   placeholder="E.G. PARK CLEANLINESS MONITORING"
                   type="text"
+                  required
                   value={form.justification}
                   onChange={handleChange}
                 />
@@ -164,10 +140,6 @@ export default function AccessRequestPage() {
       {/* Footer */}
       <footer className="border-t border-black p-4 flex justify-between items-center bg-white px-8">
         <span className="font-mono text-[9px] uppercase text-slate-500">CivicAlert v1.0.0</span>
-        {/* <div className="flex gap-4">
-          <span className="font-mono text-[9px] uppercase text-slate-500 underline cursor-pointer">Privacy Policy</span>
-          <span className="font-mono text-[9px] uppercase text-slate-500 underline cursor-pointer">Technical Terms</span>
-        </div> */}
       </footer>
     </div>
   );

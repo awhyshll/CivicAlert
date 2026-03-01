@@ -120,16 +120,16 @@ def detect(req: DetectRequest):
             detail=f"Invalid base64 image: {e}",
         )
 
-    # 3. Run inference (confidence threshold 0.15)
+    # 3. Run inference (confidence threshold 0.25)
     try:
-        results = model.predict(source=frame, conf=0.15, verbose=False)
+        results = model.predict(source=frame, conf=0.25, imgsz=640, verbose=False)
     except Exception as e:
         raise HTTPException(
             status_code=500,
             detail=f"Inference failed: {e}",
         )
 
-    # 5. Parse results into a clean list
+    # 4. Parse results into a clean list
     detections: list[Detection] = []
 
     for result in results:

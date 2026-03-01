@@ -23,8 +23,8 @@ export default function useFrameCapture(
   const getCanvas = useCallback(() => {
     if (!canvasRef.current) {
       canvasRef.current = document.createElement("canvas");
-      canvasRef.current.width = 416;
-      canvasRef.current.height = 416;
+      canvasRef.current.width = 640;
+      canvasRef.current.height = 640;
     }
     return canvasRef.current;
   }, []);
@@ -39,11 +39,11 @@ export default function useFrameCapture(
     const canvas = getCanvas();
     const ctx = canvas.getContext("2d");
 
-    // Draw the full video frame scaled down to 416×416
-    ctx.drawImage(video, 0, 0, 416, 416);
+    // Draw the full video frame scaled down to 640×640 (matches model training size)
+    ctx.drawImage(video, 0, 0, 640, 640);
 
-    // Convert to base64 JPEG (quality 0.8)
-    const base64 = canvas.toDataURL("image/jpeg", 0.8);
+    // Convert to base64 JPEG (quality 0.9 for better detail)
+    const base64 = canvas.toDataURL("image/jpeg", 0.9);
 
     // Log the payload size so we can confirm capture is working
     console.log(`[useFrameCapture] captured frame — base64 length: ${base64.length}`);
