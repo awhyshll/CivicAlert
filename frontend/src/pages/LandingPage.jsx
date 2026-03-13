@@ -117,7 +117,7 @@ export default function LandingPage() {
                     <div className="flex justify-between items-end font-mono text-[10px] text-white tracking-widest uppercase">
                       <div className="bg-black/40 backdrop-blur-sm p-2 border border-white/20">
                         DETECTION: ON<br />
-                        ACCURACY: 92%
+                        ACCURACY: 72%
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="h-8 flex flex-col justify-between opacity-60">
@@ -145,14 +145,14 @@ export default function LandingPage() {
               <span className="flex items-center gap-2">INFERENCE: &lt;150MS</span>
               <span className="flex items-center gap-2">CLEANLINESS INDEX: HIGH</span>
               <span className="flex items-center gap-2"><span className="w-1 h-1 bg-green-600" /> ALERTS: REAL-TIME</span>
-              <span className="flex items-center gap-2">ACCURACY: 92%+</span>
+              <span className="flex items-center gap-2">ACCURACY: 72%</span>
               <span className="flex items-center gap-2">STATUS: MONITORING</span>
               <span className="flex items-center gap-2"><span className="w-1 h-1 bg-green-600" /> DETECTION ENGINE: ACTIVE</span>
               <span className="flex items-center gap-2">MODEL: YOLOv8</span>
               <span className="flex items-center gap-2">INFERENCE: &lt;150MS</span>
               <span className="flex items-center gap-2">CLEANLINESS INDEX: HIGH</span>
               <span className="flex items-center gap-2"><span className="w-1 h-1 bg-green-600" /> ALERTS: REAL-TIME</span>
-              <span className="flex items-center gap-2">ACCURACY: 92%+</span>
+              <span className="flex items-center gap-2">ACCURACY: 72%</span>
               <span className="flex items-center gap-2">STATUS: MONITORING</span>
             </div>
           </div>

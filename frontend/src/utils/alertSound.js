@@ -1,19 +1,3 @@
-/**
- * alertSound.js — Generates attention-grabbing beeps via the Web Audio API.
- *
- * No external audio files are used. An OscillatorNode creates a loud,
- * pulsing tone pattern that repeats every 5 seconds while the alert is active.
- *
- * IMPORTANT: Call initAudio() from a user gesture (e.g. the "Start Monitoring"
- * button click) so the browser allows audio playback.
- *
- * Exports:
- *   initAudio()   — create the AudioContext (call once on user gesture)
- *   startAlert()  — begin the repeating beep pattern
- *   stopAlert()   — silence the alert
- *   setMuted(b)   — mute/unmute without stopping the alert loop
- *   isMuted()     — current mute state
- */
 
 let audioCtx = null;
 let gainNode = null;
